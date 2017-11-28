@@ -117,6 +117,11 @@ public class HttpRequest {
   public static final String CONTENT_TYPE_JSON = "application/json";
 
   /**
+   * 'application/xml' content type header value
+   */
+  public static final String CONTENT_TYPE_XML = "application/xml";
+
+  /**
    * 'gzip' encoding header value
    */
   public static final String ENCODING_GZIP = "gzip";
@@ -2747,6 +2752,15 @@ public class HttpRequest {
    */
   public HttpRequest acceptJson() {
     return accept(CONTENT_TYPE_JSON);
+  }
+
+  /**
+   * Set the 'Accept' header to 'application/xml'
+   *
+   * @return this request
+   */
+  public HttpRequest acceptXml() {
+    return accept(CONTENT_TYPE_XML);
   }
 
   /**
