@@ -28,6 +28,8 @@
 - (void)setRequestSerializer:(NSString*)serializerName forManager:(AFHTTPSessionManager*)manager {
     if ([serializerName isEqualToString:@"json"]) {
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    } else if ([serializerName isEqualToString:@"xml"]) {
+        manager.requestSerializer = [AFXMLRequestSerializer serializer];
     } else {
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     }

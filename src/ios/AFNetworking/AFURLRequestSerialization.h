@@ -39,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
  In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
  query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
  should be percent-escaped in the query string.
- 
+
  @param string The string to be percent-escaped.
- 
+
  @return The percent-escaped string.
  */
 FOUNDATION_EXPORT NSString * AFPercentEscapedStringFromString(NSString *string);
@@ -393,6 +393,27 @@ forHTTPHeaderField:(NSString *)field;
  @param writingOptions The specified JSON writing options.
  */
 + (instancetype)serializerWithWritingOptions:(NSJSONWritingOptions)writingOptions;
+
+@end
+
+#pragma mark -
+
+/**
+ `AFXMLRequestSerializer` is a subclass of `AFHTTPRequestSerializer` that passes XML string data, setting the `Content-Type` of the encoded request to `application/xml`.
+ */
+@interface AFXMLRequestSerializer : AFHTTPRequestSerializer
+
+/**
+ Options for writing the request XML data from Foundation objects. `0` by default.
+ */
+@property (nonatomic, assign) NSObject writingOptions;
+
+/**
+ Creates and returns a XML serializer with specified reading and writing options.
+
+ @param writingOptions The specified writing options.
+ */
++ (instancetype)serializerWithWritingOptions:(NSObject)writingOptions;
 
 @end
 
