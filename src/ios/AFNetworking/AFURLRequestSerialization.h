@@ -404,16 +404,16 @@ forHTTPHeaderField:(NSString *)field;
 @interface AFXMLRequestSerializer : AFHTTPRequestSerializer
 
 /**
- Options for writing the request XML data from Foundation objects. `0` by default.
+ Options for writing the request XML data from Foundation objects. `` by default.
  */
-@property (nonatomic, assign) NSObject writingOptions;
+@property (nonatomic, assign) NSString* writingOptions;
 
 /**
  Creates and returns a XML serializer with specified reading and writing options.
 
  @param writingOptions The specified writing options.
  */
-+ (instancetype)serializerWithWritingOptions:(NSObject)writingOptions;
++ (instancetype)serializerWithWritingOptions:(NSString*)writingOptions;
 
 @end
 

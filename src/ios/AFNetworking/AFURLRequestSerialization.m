@@ -1277,10 +1277,10 @@ typedef enum {
 @implementation AFXMLRequestSerializer
 
 + (instancetype)serializer {
-    return [self serializerWithWritingOptions:(NSObject)0];
+    return [self serializerWithWritingOptions:(NSString*)@""];
 }
 
-+ (instancetype)serializerWithWritingOptions:(NSObject)writingOptions
++ (instancetype)serializerWithWritingOptions:(NSString*)writingOptions
 {
     AFXMLRequestSerializer *serializer = [[self alloc] init];
     serializer.writingOptions = writingOptions;
@@ -1291,7 +1291,7 @@ typedef enum {
 #pragma mark - AFURLRequestSerialization
 
 - (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
-                               withParameters:(id)parameters
+                               withParameters:(NSString *)parameters
                                         error:(NSError *__autoreleasing *)error
 {
     NSParameterAssert(request);
@@ -1310,10 +1310,10 @@ typedef enum {
 
     if (parameters) {
         if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
-            [mutableRequest setValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
+            [mutableRequest setValue:@"application/xml; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
         }
 
-        [mutableRequest setHTTPBody:parameters];
+        [mutableRequest setHTTPBody:[parameters dataUsingEncoding:NSUTF8StringEncoding]];
     }
 
     return mutableRequest;
@@ -1327,7 +1327,7 @@ typedef enum {
         return nil;
     }
 
-    self.writingOptions = [[decoder decodeObjectOfClass:[NSNumber class] forKey:NSStringFromSelector(@selector(writingOptions))] unsignedIntegerValue];
+    self.writingOptions = [[decoder decodeObjectOfClass:[NSString class] forKey:NSStringFromSelector(@selector(writingOptions))] stringValue];
 
     return self;
 }
@@ -1335,7 +1335,7 @@ typedef enum {
 - (void)encodeWithCoder:(NSCoder *)coder {
     [super encodeWithCoder:coder];
 
-    [coder encodeInteger:self.writingOptions forKey:NSStringFromSelector(@selector(writingOptions))];
+    [coder encodeObject:self.writingOptions forKey:NSStringFromSelector(@selector(writingOptions))];
 }
 
 #pragma mark - NSCopying
